@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
 
-const SignUpPage = () => {
+const AuthenticationPage = ({ signUp }) => {
 
   const [email, setEmail] = useState('')
 
@@ -13,15 +13,18 @@ const SignUpPage = () => {
 
   return (
     <div>
-      <h1>Sign Up</h1>
+      <h1>Sign { !signUp ? 'In' : 'Up' }</h1>
       { 
         !email ? 
           <EmailForm 
-            signUp={true} 
+            email={email}
+            signUp={signUp} 
             changeEmail={changeEmail} 
           /> 
         : 
           <PasswordForm 
+            email={email}
+            signUp={signUp} 
             changeEmail={changeEmail}
           /> 
       }
@@ -29,4 +32,4 @@ const SignUpPage = () => {
   )
 }
 
-export default SignUpPage
+export default AuthenticationPage

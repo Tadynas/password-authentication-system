@@ -1,16 +1,20 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import SignIn from '../components/SignInPage'
-import SignUp from '../components/SignUpPage'
+import AuthenticationPage from '../components/AuthenticationPage'
+
 
 
 const AppRouter = () => (
   <Router>
     <div>
       <Switch>
-          <Route path="/" component={SignIn} exact={true} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/" exact={true}>
+            <AuthenticationPage signUp={false} />
+          </Route>
+          <Route path="/signup">
+            <AuthenticationPage signUp={true} />
+          </Route>
         </Switch>
     </div>
   </Router>
