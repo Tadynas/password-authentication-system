@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+
+import database from '../api/firebase';
 
 const EmailForm = ({ signUp, changeEmail }) => {
 
+  const history = useHistory()
   const [error, setError] = useState('')
+
+  const handleToSignIn = () => {
+    setError('')
+    history.push('/')
+  }
+
+  const handleToSignUp = () => {
+    setError('')
+    history.push('/signup')    
+  }
   
   const handleNext = (e) => {
     e.preventDefault()
@@ -14,19 +27,30 @@ const EmailForm = ({ signUp, changeEmail }) => {
     } else if (!emailRegex.test(email)) {
       setError('Wrong email format!')
     } else {
-      setError('')
-      changeEmail(email)
+      const encodedEmail = encodeURIComponent(email).replace(/\./g, '%2E')
+
+      database.ref(`users/${encodedEmail}`)
+      .once('value', (snapshot) => {
+        if((signUp && !snapshot.exists()) || (!signUp && snapshot.exists())) {
+          setError('')
+          changeEmail(email)
+        } else if(signUp) { 
+          setError('User with this email already exists!')
+        } else { 
+          setError('There is no user associated with this email!')
+        }
+      })
     }
   }
 
   return (
     <div>
-      { signUp && <Link to="/">Back</Link> }
+      { signUp && <button onClick={handleToSignIn}>Back</button> }
       <form onSubmit={handleNext}>
         <p>Enter your email</p>
         <input name="email" />
         { error && <p>{error}</p> }
-        { !signUp && <Link to="/signup">Create account</Link> }
+        { !signUp && <button onClick={handleToSignUp}>Create Account</button> }
         <button>Next</button>
       </form>
     </div>
