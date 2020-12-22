@@ -47,8 +47,8 @@ const EmailForm = ({ signUp, changeEmail }) => {
     <div>
       { signUp && <button onClick={handleToSignIn}>Back</button> }
       <form onSubmit={handleNext}>
-        <p>Enter your email</p>
-        <input name="email" />
+        <label htmlFor="email">Enter your email address</label>
+        <input name="email" id="email" />
         { error && <p>{error}</p> }
         { !signUp && <button onClick={handleToSignUp}>Create Account</button> }
         <button>Next</button>
