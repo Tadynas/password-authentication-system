@@ -1,14 +1,13 @@
 import React from 'react'
-import Image from '../images/825-200x200.jpg'
 
-const PasswordImages = ({ signUp }) => {
+const PasswordImages = ({ signUp, images, handleReload }) => {
+
   return (
     <div>
-      {/* <img src="https://source.unsplash.com/random/500x500" />
-      <img src="https://source.unsplash.com/random/500x500"/>
-      <img src="https://source.unsplash.com/random/500x500"/>
-      <img src="https://source.unsplash.com/random/500x500"/> */}
-      { signUp && <button>Reload</button> }
+      {images.map((image, index) => (
+        <img key={index} src={`${image}`} />
+      ))}
+      { signUp && <button onClick={handleReload}>Reload</button> }
     </div>
   )
 }

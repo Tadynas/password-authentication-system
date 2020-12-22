@@ -1,11 +1,17 @@
 import { createClient } from 'pexels'
 
 const client = createClient('563492ad6f917000010000013fe1cee805884a23b65c3c701e001c16')
+const query = 'Nature, City, Animals, Art'
+const per_page = 4
 
-const fetchRandomImages = () => {
-  const query = 'Nature';
+const suffix = '?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=150&w=150'
+ 
+const fetchNewImages = () => {
+  const page = Math.floor(Math.random()*1999);
 
-  client.photos.search({ query, per_page: 4 }).then(photos => {console.log(photos)})
+  return client.photos.curated({ query, per_page, page }).then((images) => {
+    return images.photos.map(( { src: { original } } ) => original + suffix)
+  })
 }
 
-export default fetchRandomImages
+export default fetchNewImages

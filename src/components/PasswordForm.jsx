@@ -6,7 +6,7 @@ import database from '../api/firebase'
 
 import PasswordImages from './PasswordImages'
 
-const PasswordForm = ({ email, changeEmail, signUp }) => {
+const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
 
   const history = useHistory()
 
@@ -36,7 +36,8 @@ const PasswordForm = ({ email, changeEmail, signUp }) => {
     if(signUp) {
       database.ref(`users/${encodedEmail}/`).set({
         password: encodedPassword,
-        incorrectCounter: 0
+        incorrectCounter: 0,
+        images: images
       })
       .then(() => {
         history.push('/signup/complete')
@@ -69,7 +70,7 @@ const PasswordForm = ({ email, changeEmail, signUp }) => {
       <button onClick={() => { changeEmail('') }}>Back</button>
       <h4>{email}</h4>
       <p>{ !signUp ? 'Remember your password using images' : 'Create your password using images' }</p>
-      <PasswordImages signUp={signUp} />
+      <PasswordImages signUp={signUp} images={images} handleReload={handleReload}/>
       <form onSubmit={handleSubmit}>
         <p>Enter your password</p>
         <input onChange={handleUpdatePassword} name="password" type={ showPassword ? 'text' : 'password' } />
