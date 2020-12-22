@@ -4,7 +4,7 @@ const client = createClient('563492ad6f917000010000013fe1cee805884a23b65c3c701e0
 const query = 'Nature, City, Animals, Art'
 const per_page = 4
 
-const suffix = '?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=150&w=150'
+const suffix = '?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=500&w=500'
  
 const fetchNewImages = () => {
   const page = Math.floor(Math.random()*1999);

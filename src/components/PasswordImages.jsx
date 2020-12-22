@@ -1,11 +1,15 @@
 import React from 'react'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 const PasswordImages = ({ signUp, images, handleReload }) => {
 
   return (
     <div>
       {images.map((image, index) => (
-        <img key={index} src={`${image}`} />
+        <Zoom key={index} overlayBgColorEnd="rgba(0, 0, 0, 0.5)" zoomMargin={100}>
+          <img src={image} width="150" />
+        </Zoom>
       ))}
       { signUp && <button onClick={handleReload}>Reload</button> }
     </div>
