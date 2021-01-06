@@ -1,0 +1,23 @@
+.progress-bar 
+  background-color: $light-grey
+  width: 100px
+  height: 6px
+  border-radius: 3px
+  text-align: right
+  margin-bottom: 3px
+
+  &__filler
+    height: 100%
+    width: 0
+    border-radius: 3px
+    transition: width .2s ease
+
+    &--weak
+      background-color: $red
+
+    &--medium
+      background-color: $orange
+
+    &--strong
+      background-color: $green
+            

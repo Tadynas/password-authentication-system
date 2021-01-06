@@ -5,6 +5,7 @@ import ReactIsCapsLockActive from '@matsun/reactiscapslockactive'
 import database from '../api/firebase'
 
 import PasswordImages from './PasswordImages'
+import PasswordLength from './PasswordLength'
 
 const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
 
@@ -68,8 +69,10 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
   return (
     <div>
       <button className="button button--back" onClick={() => { changeEmail('') }}>Back</button>
-      <h4>{email}</h4>
-      <p>{ !signUp ? 'Remember your password using images' : 'Create your password using images' }</p>
+      <div className="box-layout__box__info">
+        <h2>{email}</h2>
+        <p>{ !signUp ? 'Remember your password using images' : 'Create your password using images' }</p>
+      </div>
       <PasswordImages signUp={signUp} images={images} handleReload={handleReload}/>
       <form className={!error ? 'form' : 'form form--error'} onSubmit={handleSubmit}>
         <div className="input-field">
@@ -79,12 +82,16 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
           <ReactIsCapsLockActive>
             { active => ( active && <p>Caps lock is active</p> ) }
           </ReactIsCapsLockActive>
-          <div onClick={handleShowPassword}>Show Password</div>
-          { signUp && password && <p>{ password.length < 16 ? 'Your password is too short!' : 'Your password is secure!'}</p> }
-          { password && <p>{ password.length }</p> }
+          {/* <div onClick={handleShowPassword}>Show Password</div> */}
+          { password &&
+            <div className={ signUp ? 'form__strength' : 'form__strength form__strength--single' }>
+              { signUp && <p className="form__strength__strong" >{ password.length >= 16 && 'Your password is secure!' }</p> }
+              <PasswordLength password={password} signUp={signUp} />
+            </div>
+          }
         </div>
         <div className="form__buttons form__buttons--single">
-          <button className="button" disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
+          <button className={ password.length < 16 || disableButton ? 'button button--disabled' : 'button' } disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
         </div>
       </form>
     </div>

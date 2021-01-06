@@ -53,7 +53,7 @@ const AuthenticationPage = ({ signUp }) => {
 
   return (
     <div className="box-layout">
-      <div className="box-layout__box">
+      <div className={!email ? 'box-layout__box' : 'box-layout__box box-layout__box--password'}>
         <h1>Sign { !signUp ? 'In' : 'Up' }</h1>
         { 
           !email ? 
