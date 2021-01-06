@@ -20,7 +20,7 @@ const EmailForm = ({ signUp, changeEmail }) => {
   
   const handleNext = (e) => {
     e.preventDefault()
-    const emailRegex = /^[a-z0-9](\.?[a-z0-9]){5,}@[a-z0-9](\.?[a-z0-9]){3,}$/
+    const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
     const email = e.target.elements.email.value.trim().toLowerCase()
     if(email === '') {
       setError('Email field cannot be empty!')
@@ -44,16 +44,18 @@ const EmailForm = ({ signUp, changeEmail }) => {
   }
 
   return (
-    <div>
-      { signUp && <button onClick={handleToSignIn}>Back</button> }
-      <form onSubmit={handleNext}>
+    <form className={!error ? 'form' : 'form form--error'} onSubmit={handleNext}>
+      { signUp && <button className="button button--back" onClick={handleToSignIn}>Back</button> }
+      <div className="input-field">
         <label htmlFor="email">Enter your email address</label>
         <input name="email" id="email" />
-        { error && <p>{error}</p> }
-        { !signUp && <button onClick={handleToSignUp}>Create Account</button> }
-        <button>Next</button>
-      </form>
-    </div>
+        { error && <p className="form--error__message">{error}</p> }
+      </div>
+      <div className={signUp ? 'form__buttons form__buttons--single' : 'form__buttons'}>
+        { !signUp && <div className="button button--link" onClick={handleToSignUp}>Create Account</div> }
+        <button className="button">Next</button>
+      </div>
+    </form>
   )
 }
 

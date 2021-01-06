@@ -67,21 +67,25 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
 
   return (
     <div>
-      <button onClick={() => { changeEmail('') }}>Back</button>
+      <button className="button button--back" onClick={() => { changeEmail('') }}>Back</button>
       <h4>{email}</h4>
       <p>{ !signUp ? 'Remember your password using images' : 'Create your password using images' }</p>
       <PasswordImages signUp={signUp} images={images} handleReload={handleReload}/>
-      <form onSubmit={handleSubmit}>
-        <p>Enter your password</p>
-        <input onChange={handleUpdatePassword} name="password" type={ showPassword ? 'text' : 'password' } />
-        { error && <p>{error}</p> }
-        <ReactIsCapsLockActive>
-          { active => ( active && <p>Caps lock is active</p> ) }
-        </ReactIsCapsLockActive>
-        <div onClick={handleShowPassword}>Show Password</div>
-        { signUp && password && <p>{ password.length < 16 ? 'Your password is too short!' : 'Your password is secure!'}</p> }
-        { password && <p>{ password.length }</p> }
-        <button disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
+      <form className={!error ? 'form' : 'form form--error'} onSubmit={handleSubmit}>
+        <div className="input-field">
+          <p>Enter your password</p>
+          <input onChange={handleUpdatePassword} name="password" type={ showPassword ? 'text' : 'password' } />
+          { error && <p className="form--error__message">{error}</p> }
+          <ReactIsCapsLockActive>
+            { active => ( active && <p>Caps lock is active</p> ) }
+          </ReactIsCapsLockActive>
+          <div onClick={handleShowPassword}>Show Password</div>
+          { signUp && password && <p>{ password.length < 16 ? 'Your password is too short!' : 'Your password is secure!'}</p> }
+          { password && <p>{ password.length }</p> }
+        </div>
+        <div className="form__buttons form__buttons--single">
+          <button className="button" disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
+        </div>
       </form>
     </div>
   )

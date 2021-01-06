@@ -52,24 +52,26 @@ const AuthenticationPage = ({ signUp }) => {
   }
 
   return (
-    <div>
-      <h1>Sign { !signUp ? 'In' : 'Up' }</h1>
-      { 
-        !email ? 
-          <EmailForm 
-            email={email}
-            signUp={signUp} 
-            changeEmail={changeEmail} 
-          /> 
-        : 
-          <PasswordForm 
-            email={email}
-            signUp={signUp} 
-            changeEmail={changeEmail}
-            images={images}
-            handleReload={handleReload}
-          /> 
-      }
+    <div className="box-layout">
+      <div className="box-layout__box">
+        <h1>Sign { !signUp ? 'In' : 'Up' }</h1>
+        { 
+          !email ? 
+            <EmailForm 
+              email={email}
+              signUp={signUp} 
+              changeEmail={changeEmail} 
+            /> 
+          : 
+            <PasswordForm 
+              email={email}
+              signUp={signUp} 
+              changeEmail={changeEmail}
+              images={images}
+              handleReload={handleReload}
+            /> 
+        }
+      </div>
     </div>
   )
 }
