@@ -11,8 +11,8 @@ const Intro = () => {
   return (
     <div className="box-layout">
       <div className="box-layout__box box-layout__box--intro">
+        <h1>Attention!</h1>
         <div className="box-layout__box__complete">
-          <h1>Attention!</h1>
           <p>
             Following system is created for university project to balance usability and security in password based authentication system.
             This is an imitation of real life email authentication system.
