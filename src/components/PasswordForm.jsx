@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import ReactIsCapsLockActive from '@matsun/reactiscapslockactive'
 
+import { BsChevronLeft } from "react-icons/bs";
+import { HiChevronLeft } from "react-icons/hi";
+
 import database from '../api/firebase'
 
 import PasswordImages from './PasswordImages'
@@ -67,8 +70,10 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
   }
 
   return (
-    <div>
-      <button className="button button--back" onClick={() => { changeEmail('') }}>Back</button>
+    <div className="password-form">
+      <button className="button button--back" onClick={() => { changeEmail('') }}>
+       <HiChevronLeft className="button--back__icon" />
+      </button>
       <div className="box-layout__box__info">
         <h2>{email}</h2>
         <p>{ !signUp ? 'Remember your password using images' : 'Create your password using images' }</p>
@@ -77,12 +82,16 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
       <form className={!error ? 'form' : 'form form--error'} onSubmit={handleSubmit}>
         <div className="input-field">
           <p>Enter your password</p>
-          <input onChange={handleUpdatePassword} name="password" type={ showPassword ? 'text' : 'password' } />
-          { error && <p className="form--error__message">{error}</p> }
+          <div className="input-field__group">
+            <input onChange={handleUpdatePassword} name="password" type={ showPassword ? 'text' : 'password' } />
+            <button onClick={handleShowPassword} className="form__show-password">
+              <BsChevronLeft />
+            </button>
+          </div>
           <ReactIsCapsLockActive>
             { active => ( active && <p>Caps lock is active</p> ) }
           </ReactIsCapsLockActive>
-          {/* <div onClick={handleShowPassword}>Show Password</div> */}
+          { error && <p className="form--error__message">{error}</p> }
           { password &&
             <div className={ signUp ? 'form__strength' : 'form__strength form__strength--single' }>
               { signUp && <p className="form__strength__strong" >{ password.length >= 16 && 'Your password is secure!' }</p> }
@@ -91,7 +100,10 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
           }
         </div>
         <div className="form__buttons form__buttons--single">
-          <button className={ password.length < 16 || disableButton ? 'button button--disabled' : 'button' } disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
+          <div className={ password.length < 16 ? 'form__buttons__group-tooltip' : '' }>
+            <div className="tooltip">Password is too short! Password must contain at least 16 symbols.</div>
+            <button className={ password.length < 16 || disableButton ? 'button button--disabled' : 'button' } disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
+          </div>
         </div>
       </form>
     </div>

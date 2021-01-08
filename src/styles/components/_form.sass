@@ -31,6 +31,21 @@
     flex-direction: row
     justify-content: space-between
 
+    &__group-tooltip
+      display: inline-block
+      position: relative
+
+      @media (hover:hover)
+        &:hover
+          .tooltip
+            opacity: 1
+
     &--single
       justify-content: flex-end
+
+  &__show-password
+    position: absolute
+    right: 9px
+    top: 50%
+    transform: translateY(-50%)
     

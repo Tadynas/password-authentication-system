@@ -2,6 +2,8 @@ import React from 'react'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
+import { BsChevronLeft } from "react-icons/bs";
+
 const PasswordImages = ({ signUp, images, handleReload }) => {
 
   return (
@@ -11,7 +13,9 @@ const PasswordImages = ({ signUp, images, handleReload }) => {
           <img src={image} width="100" />
         </Zoom>
       ))}
-      { signUp && <button onClick={handleReload}>Reload</button> }
+      { signUp && <button onClick={handleReload} className="password-images__reload">
+        <BsChevronLeft />
+      </button> }
     </div>
   )
 }

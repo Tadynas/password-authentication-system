@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { HiChevronLeft } from "react-icons/hi";
 
 import database from '../api/firebase';
 
@@ -45,7 +46,9 @@ const EmailForm = ({ signUp, changeEmail }) => {
 
   return (
     <form className={!error ? 'form' : 'form form--error'} onSubmit={handleNext}>
-      { signUp && <button className="button button--back" onClick={handleToSignIn}>Back</button> }
+      { signUp && <button className="button button--back" onClick={handleToSignIn}>
+        <HiChevronLeft className="button--back__icon" />
+      </button> }
       <div className="input-field">
         <label htmlFor="email">Enter your email address</label>
         <input name="email" id="email" />
