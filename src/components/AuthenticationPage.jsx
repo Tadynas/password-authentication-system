@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import database from '../api/firebase'
 import fetchNewImages from '../api/pexels'
 
@@ -9,15 +8,8 @@ import PasswordForm from './PasswordForm'
 
 const AuthenticationPage = ({ signUp }) => {
 
-  const history = useHistory()
-
-  const [message, setMessage] = useState(true)
   const [email, setEmail] = useState('')
   const [images, setImages] = useState([])
-
-  const handleGetStarted = () => {
-    setMessage(false)
-  }
 
   const loadImage = (image) => {
     return new Promise((resolve) => {
