@@ -10,7 +10,7 @@ const PasswordImages = ({ signUp, images, handleReload }) => {
     <div className="password-images">
       {images.map((image, index) => (
         <Zoom key={index} overlayBgColorEnd="rgba(0, 0, 0, 0.5)" zoomMargin={100}>
-          <img src={image} width="100" />
+          <img src={image} width="100" alt="" />
         </Zoom>
       ))}
       { signUp && <button onClick={handleReload} className="password-images__reload">
