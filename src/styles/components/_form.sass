@@ -10,35 +10,37 @@
       color: $red
       border-color: $red !important
 
-    &__message
+    .form__bottom__message
+      color: $red
+      min-width: 60%
+
+    .form__show-password__icon
       color: $red
 
-  &__strength
+    .form__caps-lock-group__icon
+      color: $red
+
+  &__bottom
     display: flex
-    flex-direction: row
     justify-content: space-between
-    margin-top: 3px
 
-    &__strong
-      line-height: $size-small
-      color: $green
+    &__strength
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      width: 100%
+      
+      &__strong
+        line-height: $size-small
+        color: $green
 
-    &--single
-      justify-content: flex-end
+      &--single
+        justify-content: flex-end
 
   &__buttons
     display: flex
     flex-direction: row
     justify-content: space-between
-
-    &__group-tooltip
-      display: inline-block
-      position: relative
-
-      @media (hover:hover)
-        &:hover
-          .tooltip
-            opacity: 1
 
     &--single
       justify-content: flex-end
@@ -48,4 +50,22 @@
     right: 9px
     top: 50%
     transform: translateY(-50%)
-    
+    background: none
+    border: none
+
+    &__icon
+      height: 20px
+      width: 20px
+      transform: translateY(1px)
+      
+  &__caps-lock-group
+    position: absolute !important
+    right: 35px
+    top: 50%
+    transform: translateY(-47%)
+    background: none
+    border: none
+
+  &__icon
+    height: 20px
+    width: 20px

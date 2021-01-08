@@ -2,7 +2,7 @@ import React from 'react'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-import { BsChevronLeft } from "react-icons/bs";
+import { HiRefresh } from "react-icons/hi"
 
 const PasswordImages = ({ signUp, images, handleReload }) => {
 
@@ -14,7 +14,7 @@ const PasswordImages = ({ signUp, images, handleReload }) => {
         </Zoom>
       ))}
       { signUp && <button onClick={handleReload} className="password-images__reload">
-        <BsChevronLeft />
+        <HiRefresh className="password-images__reload__icon" />
       </button> }
     </div>
   )

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import ReactIsCapsLockActive from '@matsun/reactiscapslockactive'
 
-import { BsChevronLeft } from "react-icons/bs";
-import { HiChevronLeft } from "react-icons/hi";
+import { HiChevronLeft, HiOutlineQuestionMarkCircle } from "react-icons/hi"
+import { FiEyeOff, FiEye, FiArrowUpCircle } from "react-icons/fi"
 
 import database from '../api/firebase'
 
@@ -32,6 +32,7 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()    
+    console.log('veikia')
     setDisableButton(true)
     const encodedEmail = encodeURIComponent(email).replace(/\./g, '%2E')
     const password = e.target.elements.password.value
@@ -76,32 +77,60 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
       </button>
       <div className="box-layout__box__info">
         <h2>{email}</h2>
-        <p>{ !signUp ? 'Remember your password using images' : 'Create your password using images' }</p>
+        { !signUp ?
+          <p>Remember your password using images</p>
+        :
+          <div className="box-layout__box__info__label">
+            <p>Create your password using images</p>
+            <div className="tooltip-group">
+              <div className="tooltip tooltip--icon"><p>Take a look at the pictures and come up with a password. Next time, when you will try to sign in, same pictures will be shown to help you to remember your password.</p></div>
+              <HiOutlineQuestionMarkCircle className="form__icon" />
+            </div>
+          </div>
+        }
       </div>
       <PasswordImages signUp={signUp} images={images} handleReload={handleReload}/>
       <form className={!error ? 'form' : 'form form--error'} onSubmit={handleSubmit}>
         <div className="input-field">
-          <p>Enter your password</p>
+          <div className="box-layout__box__info__label">
+            <p>Enter your password</p>
+            { signUp &&
+              <div className="tooltip-group">
+                <div className="tooltip tooltip--icon"><p>Password must contain at least 16 symbols. Use provided pictures to create a new password.</p></div>
+                <HiOutlineQuestionMarkCircle className="form__icon" />
+              </div>
+            }
+          </div>
           <div className="input-field__group">
             <input onChange={handleUpdatePassword} name="password" type={ showPassword ? 'text' : 'password' } />
-            <button onClick={handleShowPassword} className="form__show-password">
-              <BsChevronLeft />
-            </button>
-          </div>
-          <ReactIsCapsLockActive>
-            { active => ( active && <p>Caps lock is active</p> ) }
-          </ReactIsCapsLockActive>
-          { error && <p className="form--error__message">{error}</p> }
-          { password &&
-            <div className={ signUp ? 'form__strength' : 'form__strength form__strength--single' }>
-              { signUp && <p className="form__strength__strong" >{ password.length >= 16 && 'Your password is secure!' }</p> }
-              <PasswordLength password={password} signUp={signUp} />
+            <div className="form__caps-lock-group tooltip-group">
+              <div className="tooltip tooltip--icon tooltip--caps-lock"><p>Caps Lock is active!</p></div>
+              <ReactIsCapsLockActive>
+                  { active => ( active && <FiArrowUpCircle className="form__icon" /> ) }
+              </ReactIsCapsLockActive>
             </div>
-          }
+            <div onClick={handleShowPassword} className="form__show-password">
+              {
+                showPassword ? 
+                  <FiEye className="form__show-password__icon" />
+                :
+                  <FiEyeOff className="form__show-password__icon" />
+              }
+            </div>
+          </div>
+          <div className="form__bottom">
+            <p className="form__bottom__message">{ error && error }</p>
+            { password &&
+              <div className={ signUp ? 'form__bottom__strength' : 'form__bottom__strength form__bottom__strength--single' }>
+                { signUp && <p className="form__bottom__strength__strong" >{ password.length >= 16 && 'Your password is secure!' }</p> }
+                <PasswordLength password={password} signUp={signUp} />
+              </div>
+            }
+          </div>
         </div>
         <div className="form__buttons form__buttons--single">
-          <div className={ password.length < 16 ? 'form__buttons__group-tooltip' : '' }>
-            <div className="tooltip">Password is too short! Password must contain at least 16 symbols.</div>
+          <div className={ password.length < 16 ? 'tooltip-group' : '' }>
+            <div className="tooltip"><p>Password is too short! <br /> Password must contain at least 16 symbols.</p></div>
             <button className={ password.length < 16 || disableButton ? 'button button--disabled' : 'button' } disabled={ password.length < 16 || disableButton }>{ !signUp ? 'Sign In' : 'Sign Up' }</button>
           </div>
         </div>

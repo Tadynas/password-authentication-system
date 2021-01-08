@@ -1,24 +1,46 @@
+.tooltip-group
+  display: inline-block
+  position: relative
+
+  @media (hover:hover)
+    &:hover
+      .tooltip
+        opacity: 1
+
 .tooltip
   position: absolute
-  bottom: 36px
-  left: -6px
+  bottom: 44px
+  left: 50%
   background-color: $dark-grey
   border-radius: 8px
-  min-width: 160px
-  min-height: 80px
+  width: 320px
   color: white
   padding: 12px 14px
   box-shadow: 0 8px 16px transparentize(#0D2750, .8)
+  text-align: center
   opacity: 0
   transition: all .3s ease
+  transform: translateX(-50%)
+  pointer-events: none
+
+  &--icon
+    bottom: 29px
+    left: 42%
+
+  &--caps-lock
+    width: 170px
+
+  
   &::after
     content: ''
     position: absolute
     bottom: 0
-    left: 6px
+    left: 50%
     width: 14px
     height: 14px
     background-color: $dark-grey
     border-radius: 3px
     box-shadow: 0 8px 16px transparentize(#0D2750, .8)
-    transform: rotate(45deg) translateX(50%)
+    transform: rotate(45deg) translateY(50%)
+
+  

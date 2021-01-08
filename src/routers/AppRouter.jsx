@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import IntroPage from '../components/IntroPage'
 import AuthenticationPage from '../components/AuthenticationPage'
 import CompletePage from '../components/CompletePage'
 
@@ -11,6 +12,9 @@ const AppRouter = () => (
     <div>
       <Switch>
           <Route path="/" exact={true}>
+            <IntroPage />
+          </Route>
+          <Route path="/login">
             <AuthenticationPage signUp={false} />
           </Route>
           <Route path="/complete">
