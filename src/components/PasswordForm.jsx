@@ -18,6 +18,7 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [disableButton, setDisableButton] = useState(false)
   const [error, setError] = useState('')
+  const [errorCount, setErrorCount] = useState(0)
 
   const handleUpdatePassword = (e) => {
     setError('')
@@ -57,7 +58,14 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
           history.push('/complete')
         } else {
           setDisableButton(false)
-          setError('Provided password was incorrect!')
+          setErrorCount((prevState) => prevState + 1)
+          if(errorCount < 2) {
+            setError('Provided password was incorrect!')
+          } else if(errorCount < 5) {
+            setError('Provided password was incorrect! Check if your email is correct.')
+          } else {
+            setError('Too many invalid attempts to login! Wait 1 hour and then try again.')
+          }
           database.ref(`users/${encodedEmail}/incorrectCounter`).once('value', (snapshot) => {
             database.ref(`users/${encodedEmail}/incorrectCounter`).set(snapshot.val() + 1)
           })
@@ -106,7 +114,7 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
             <div className="form__caps-lock-group tooltip-group">
               <div className="tooltip tooltip--icon tooltip--caps-lock"><p>Caps Lock is active!</p></div>
               <ReactIsCapsLockActive>
-                  { active => ( active && <FiArrowUpCircle className="form__icon" /> ) }
+                  { active => ( active && <FiArrowUpCircle className="form__icon form__caps-lock-group__icon" /> ) }
               </ReactIsCapsLockActive>
             </div>
             <div onClick={handleShowPassword} className="form__show-password">

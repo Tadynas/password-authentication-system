@@ -8,6 +8,7 @@ const EmailForm = ({ signUp, changeEmail }) => {
 
   const history = useHistory()
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleToSignIn = () => {
     setError('')
@@ -28,6 +29,7 @@ const EmailForm = ({ signUp, changeEmail }) => {
     } else if (!emailRegex.test(email)) {
       setError('Wrong email format!')
     } else {
+      setLoading(true)
       const encodedEmail = encodeURIComponent(email).replace(/\./g, '%2E')
 
       database.ref(`users/${encodedEmail}`)
@@ -36,8 +38,10 @@ const EmailForm = ({ signUp, changeEmail }) => {
           setError('')
           changeEmail(email)
         } else if(signUp) { 
+          setLoading(false)
           setError('User with this email already exists!')
         } else { 
+          setLoading(false)
           setError('There is no user associated with this email!')
         }
       })
@@ -56,7 +60,7 @@ const EmailForm = ({ signUp, changeEmail }) => {
       </div>
       <div className={signUp ? 'form__buttons form__buttons--single' : 'form__buttons'}>
         { !signUp && <div className="button button--link" onClick={handleToSignUp}>Create Account</div> }
-        <button className="button">Next</button>
+        <button disabled={loading} className={`button ${ loading ? 'button--disabled' : ''}`}>Next</button>
       </div>
     </form>
   )
