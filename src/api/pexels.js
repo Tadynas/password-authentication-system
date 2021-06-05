@@ -1,6 +1,5 @@
 import { createClient } from 'pexels'
-
-const client = createClient(process.env.PEXELS_CLIENT_KEY)
+const client = createClient(process.env.REACT_APP_PEXELS_CLIENT_KEY)
 const query = 'Nature, City, Animals'
 const per_page = 4
 

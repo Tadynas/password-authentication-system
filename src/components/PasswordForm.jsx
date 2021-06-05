@@ -33,7 +33,6 @@ const PasswordForm = ({ email, changeEmail, signUp, images, handleReload }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()    
-    console.log('veikia')
     setDisableButton(true)
     const encodedEmail = encodeURIComponent(email).replace(/\./g, '%2E')
     const password = e.target.elements.password.value
